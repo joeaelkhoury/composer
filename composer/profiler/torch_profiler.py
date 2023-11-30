@@ -263,5 +263,6 @@ class TorchProfiler(Callback):  # noqa: D101
                 log.info(self.profiler.key_averages().table(sort_by='cuda_time_total', row_limit=20))
                 if self.profile_memory:
                     log.info(self.profiler.key_averages().table(sort_by='self_cuda_memory_usage', row_limit=20))
+            dist.barrier()
             self.profiler.__exit__(None, None, None)
             self.profiler = None
