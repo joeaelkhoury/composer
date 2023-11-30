@@ -254,6 +254,7 @@ class TorchProfiler(Callback):  # noqa: D101
 
     def close(self, state: State, logger: Logger) -> None:
         del state, logger  # unused
+        dist.barrier()
         if self.profiler is not None:
             log.info(self.profiler.key_averages().table(sort_by='cpu_time_total', row_limit=20))
             if self.profile_memory:
