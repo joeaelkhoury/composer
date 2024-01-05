@@ -61,7 +61,8 @@ def get_precision_context(precision: Union[str, Precision],
             yield
     elif precision == Precision.AMP_BF16:
         if torch.cuda.is_available():
-            yield
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                yield
         else:
             os.environ['XLA_USE_BF16'] = '1'
             yield
@@ -76,8 +77,9 @@ def get_precision_context(precision: Union[str, Precision],
                     'amax_compute_algo': 'max',
                 }
             fp8_recipe = DelayedScaling(**precision_config)
-            with te.fp8_autocast(enabled=True, fp8_recipe=fp8_recipe):
-                yield
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                with te.fp8_autocast(enabled=True, fp8_recipe=fp8_recipe):
+                    yield
         else:
             if te_installed:
                 raise RuntimeError('AMP_FP8 precision is used but current device does not support it.')
