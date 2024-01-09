@@ -77,7 +77,7 @@ def get_precision_context(precision: Union[str, Precision],
                     'amax_compute_algo': 'max',
                 }
             fp8_recipe = DelayedScaling(**precision_config)
-            with te.fp8_autocast(enabled=True, fp8_recipe=fp8_recipe):
+            with te.fp8_autocast(enabled=True, fp8_recipe=fp8_recipe, fp8_group=torch.distributed.group.WORLD):
                 yield
         else:
             if te_installed:
