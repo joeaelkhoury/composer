@@ -54,4 +54,4 @@ class LRMonitor(Callback):
         if state.timestamp.batch > 1: 
             print("CHUCK")
             import time
-            time.sleep(300)
+            time.sleep(30)
