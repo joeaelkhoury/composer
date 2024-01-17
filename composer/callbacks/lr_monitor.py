@@ -52,7 +52,7 @@ class LRMonitor(Callback):
             for idx, lr in enumerate(lrs):
                 logger.log_metrics({f'lr-{name}/group{idx}': lr})
         print("CHUCK BATCH END")
-        if state.timestamp.batch > 10: 
+        if state.timestamp.batch > 500: 
             print(state.timestamp.batch)
             print("HULLO")
             import time
