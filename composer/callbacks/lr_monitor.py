@@ -51,7 +51,9 @@ class LRMonitor(Callback):
             name = optimizer.__class__.__name__
             for idx, lr in enumerate(lrs):
                 logger.log_metrics({f'lr-{name}/group{idx}': lr})
-        if state.timestamp.batch > 1: 
-            print("CHUCK")
+        print("CHUCK BATCH END")
+        if state.timestamp.batch > state.timestamp.Timestamp('5ba'): 
+            print(state.timestampq.batch)
+            print("HULLO")
             import time
             time.sleep(300)
